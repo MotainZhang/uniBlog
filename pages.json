@@ -1,0 +1,118 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"navigationBarTextStyle": "black",
+				"app-plus":{
+					"titleNView":{
+						"backButton":false
+					}
+				}
+			}
+		}, {
+			"path": "pages/login/register",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"navigationBarTextStyle": "black",
+				"onReachBottomDistance": 50
+			}
+		},
+		{
+			"path": "pages/archives/archives",
+			"style": {
+				"navigationBarTitleText": "归档",
+				"navigationBarTextStyle": "black",
+				"onReachBottomDistance": 50
+			}
+		},
+		{
+			"path": "pages/tags/tags",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"navigationBarTextStyle": "black",
+				"onReachBottomDistance": 50
+			}
+		}, {
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "关于",
+				"navigationBarTextStyle": "black",
+				"onReachBottomDistance": 50
+			}
+		}, {
+			"path": "pages/articleDetail/articleDetail",
+			"style": {
+				"navigationBarTitleText": "文章详情",
+				"navigationBarTextStyle": "black",
+				"onReachBottomDistance": 50
+			}
+		},{
+			"path": "pages/comment/reply",
+			"style": {
+				"navigationBarTitleText": "评论详情",
+				"navigationBarTextStyle": "black",
+				"onReachBottomDistance": 50
+			}
+		}
+	    ,{
+            "path" : "pages/my/editUser",
+            "style" : {
+				"navigationBarTitleText": "修改信息",
+				"navigationBarTextStyle": "black"
+			}
+        }
+        ,{
+            "path" : "pages/archives/archivesSelect",
+            "style" : {
+				"navigationBarTitleText": "归档查询",
+				"navigationBarTextStyle": "black"
+			}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#909399",
+		"selectedColor": "#303133",
+		"backgroundColor": "#fff",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/img/home.png",
+				"selectedIconPath": "static/img/homeActive.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/archives/archives",
+				"iconPath": "static/img/guidang.png",
+				"selectedIconPath": "static/img/guidangActive.png",
+				"text": "归档"
+			},
+			{
+				"pagePath": "pages/tags/tags",
+				"iconPath": "static/img/fenlei.png",
+				"selectedIconPath": "static/img/classActive.png",
+				"text": "分类"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/img/my.png",
+				"selectedIconPath": "static/img/myActive.png",
+				"text": "关于"
+			}
+		]
+	}
+}
