@@ -17,7 +17,7 @@
 						:border-color="tag.color"
 						:bg-color="tag.color"
 						:text="tag.name"
-						@click="goTagSelect(tag,'tag')"
+						@click="goTagSelect(tag, 'tag')"
 					/>
 					<text class="splitLine"></text>
 					<u-icon name="bookmark-fill" size="34" color=""></u-icon>
@@ -29,7 +29,7 @@
 						:border-color="category.color"
 						:bg-color="category.color"
 						:text="category.name"
-						@click="goTagSelect(category,'category')"
+						@click="goTagSelect(category, 'category')"
 					/>
 				</view>
 			</view>
@@ -59,14 +59,23 @@ export default {
 			iconStyle: {
 				fontSize: '32rpx',
 				color: '#2979ff'
-			}
+			},
+			stateTab: true
 		};
 	},
 	onReady() {
 		this.$refs.loading.open();
 	},
+	onShow() {
+		if (this.stateTab) {
+			this.articleList = []
+			this.getArticleList();
+		}
+		this.stateTab = true;
+	},
 	onLoad() {
-		this.getArticleList()
+		this.getArticleList();
+		this.stateTab = false;
 	},
 	onPageScroll(e) {
 		this.scrollTop = e.scrollTop;
@@ -94,7 +103,8 @@ export default {
 		});
 	},
 	methods: {
-		getArticleList(){
+		getArticleList() {
+			this.status = 'loading';
 			this.$u.api.getArticleList({ pageSize: 10 }).then(res => {
 				if (res.code == 200) {
 					this.articleList = res.data.rows;
@@ -111,12 +121,12 @@ export default {
 				}
 			});
 		},
-		goTagSelect(item,type) {
+		goTagSelect(item, type) {
 			this.$u.route({
 				url: 'pages/archives/archivesSelect',
 				params: {
 					name: item.name,
-					type:type
+					type: type
 				}
 			});
 		},

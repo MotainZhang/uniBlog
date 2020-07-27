@@ -7,9 +7,9 @@
 			"style": {
 				"navigationBarTitleText": "登录",
 				"navigationBarTextStyle": "black",
-				"app-plus":{
-					"titleNView":{
-						"backButton":false
+				"app-plus": {
+					"titleNView": {
+						"backButton": false
 					}
 				}
 			}
@@ -56,29 +56,48 @@
 				"navigationBarTextStyle": "black",
 				"onReachBottomDistance": 50
 			}
-		},{
+		}, {
 			"path": "pages/comment/reply",
 			"style": {
 				"navigationBarTitleText": "评论详情",
 				"navigationBarTextStyle": "black",
 				"onReachBottomDistance": 50
 			}
-		}
-	    ,{
-            "path" : "pages/my/editUser",
-            "style" : {
+		}, {
+			"path": "pages/my/editUser",
+			"style": {
 				"navigationBarTitleText": "修改信息",
 				"navigationBarTextStyle": "black"
 			}
-        }
-        ,{
-            "path" : "pages/archives/archivesSelect",
-            "style" : {
+		}, {
+			"path": "pages/archives/archivesSelect",
+			"style": {
 				"navigationBarTitleText": "归档查询",
 				"navigationBarTextStyle": "black"
 			}
-        }
-    ],
+		},
+		{
+			"path": "pages/news/index",
+			"style": {
+				"navigationBarTitleText": "看一看",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/news/details/details",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/news/details/videoDetails",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"navigationBarTextStyle": "black"
+			}
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

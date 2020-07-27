@@ -8,20 +8,17 @@
 			</view>
 			<view class="u-m-l-10 u-p-10"><u-icon name="arrow-right" color="#969799" size="28"></u-icon></view>
 		</view>
-
-		<!-- <view class="u-m-t-20">
-			<u-cell-group><u-cell-item icon="rmb-circle" title="支付"></u-cell-item></u-cell-group>
-		</view>
-
 		<view class="u-m-t-20">
+			<u-cell-group><u-cell-item icon="eye-fill" title="看一看" @click="goNews"></u-cell-item></u-cell-group>
+		</view>
+	<!-- 	<view class="u-m-t-20">
 			<u-cell-group>
 				<u-cell-item icon="star" title="收藏"></u-cell-item>
 				<u-cell-item icon="photo" title="相册"></u-cell-item>
 				<u-cell-item icon="coupon" title="卡券"></u-cell-item>
 				<u-cell-item icon="heart" title="关注"></u-cell-item>
 			</u-cell-group>
-		</view>
- -->
+		</view> -->
 		<view class="u-m-t-20">
 			<u-cell-group><u-cell-item icon="setting" title="退出" @click="exit"></u-cell-item></u-cell-group>
 		</view>
@@ -49,6 +46,11 @@ export default {
 			});
 	},
 	methods: {
+		goNews(){
+			uni.navigateTo({
+				url: '/pages/news/index'
+			});
+		},
 		editUser() {
 			uni.navigateTo({
 				url: '/pages/my/editUser?userDetail=' + encodeURIComponent(JSON.stringify(this.userDetail))

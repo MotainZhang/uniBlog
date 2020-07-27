@@ -1,0 +1,64 @@
+<template>
+	<div class="mix-load-more" @click="loading">
+		<image 
+			ref="loadingIcon" 
+			class="mix-load-more__icon" 
+			src="/static/loading.gif"
+			v-if="status == 1"
+		>
+		</image>
+		<text class="mix-load-more__text" :class="{'mix-load-more__text--disabled': status===2}">{{text[status]}}</text>
+	</div>
+</template>
+
+<script>
+	export default {
+		name: "mix-load-more",
+		props: {
+			status: {
+				//0加载前，1加载中，2没有更多了
+				type: Number,
+				default: 0
+			},
+			text: {
+				type: Array,
+				default () {
+					return [
+						'上拉显示更多',
+						'正在加载..',
+						'我也是有底线的~'
+					];
+				}
+			}
+		},
+		methods: {
+			
+		},
+	}
+</script>
+
+<style>
+	.mix-load-more {
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		height: 60upx;
+	}
+
+	.mix-load-more__icon {
+		width: 36upx;
+		height: 36upx;
+		margin-right: 12upx;
+	}
+
+	.mix-load-more__text {
+		font-size: 28upx;
+		color: #aaa;
+	}
+
+	.mix-load-more__text--disabled {
+		font-size: 24upx;
+		color: #bbb;
+	}
+
+</style>

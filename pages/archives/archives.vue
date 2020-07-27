@@ -2,7 +2,7 @@
 	<view class="archivesContent">
 		<w-loading text="加载中.." mask="true" click="true" ref="loading"></w-loading>
 		<u-time-line v-if="loading">
-			<u-time-line-item nodeTop="2">
+			<u-time-line-item nodeTop="2"  v-if="articleList.length > 0">
 				<template v-slot:node>
 					<view class="u-node" style="background: #19be6b;"><u-icon name="pushpin-fill" color="#fff" :size="24"></u-icon></view>
 				</template>
@@ -33,7 +33,7 @@
 export default {
 	data() {
 		return {
-			loading:false,
+			loading: false,
 			status: 'loadmore',
 			iconType: 'flower',
 			loadText: {
@@ -49,18 +49,31 @@ export default {
 				fontSize: '32rpx',
 				color: '#2979ff'
 			},
-			articleCount: 0
+			articleCount: 0,
+			stateTab: true
 		};
+	},
+	onShow() {
+		if (this.stateTab) {
+			let params = {
+				page: 1,
+				pageSize: 20
+			};
+			this.articleList = []
+			this.getArchivesList(params);
+		}
+		this.stateTab = true;
 	},
 	onReady() {
 		this.$refs.loading.open();
 	},
 	onLoad(option) {
 		let params = {
-			page:1,
+			page: 1,
 			pageSize: 20
 		};
-		this.getArchivesList(params)
+		this.getArchivesList(params);
+		this.stateTab = false;
 	},
 	onPageScroll(e) {
 		this.scrollTop = e.scrollTop;
@@ -80,7 +93,8 @@ export default {
 		});
 	},
 	methods: {
-		getArchivesList(params){
+		getArchivesList(params) {
+			this.status = 'loading';
 			this.$u.api.getArticleList(params).then(res => {
 				if (res.code == 200) {
 					this.articleList = res.data.rows;
@@ -97,7 +111,7 @@ export default {
 					id: item.id
 				}
 			});
-		},
+		}
 	}
 };
 </script>
@@ -106,7 +120,7 @@ export default {
 .archivesContent {
 	padding: 50rpx;
 }
-.u-sec-node{
+.u-sec-node {
 	width: 25rpx;
 	height: 25rpx;
 	border-radius: 100rpx;
@@ -132,7 +146,7 @@ export default {
 }
 
 .u-order-desc {
-	color:#1890ff;
+	color: #1890ff;
 	font-size: 28rpx;
 	margin-bottom: 6rpx;
 }

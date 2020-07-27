@@ -48,26 +48,21 @@ export default {
 			articleId: -1,
 			commentForm: {
 				content: ''
-			}
+			},
+			stateTab:true
 		};
 	},
+	onShow(){
+		if (this.stateTab) {
+			this.getServerData();
+			this.getComment()
+		}
+		this.stateTab = true;
+	},
 	onLoad() {
-		_self = this;
-		//#ifdef MP-ALIPAY
-		uni.getSystemInfo({
-			success: function(res) {
-				if (res.pixelRatio > 1) {
-					//正常这里给2就行，如果pixelRatio=3性能会降低一点
-					//_self.pixelRatio =res.pixelRatio;
-					_self.pixelRatio = 2;
-				}
-			}
-		});
-		//#endif
-		this.cWidth = uni.upx2px(750);
-		this.cHeight = uni.upx2px(500);
 		this.getServerData();
 		this.getComment()
+		this.stateTab = false;
 	},
 	methods: {
 		// 获取非文章详情页评论
@@ -99,6 +94,20 @@ export default {
 			});
 		},
 		getServerData() {
+			_self = this;
+			//#ifdef MP-ALIPAY
+			uni.getSystemInfo({
+				success: function(res) {
+					if (res.pixelRatio > 1) {
+						//正常这里给2就行，如果pixelRatio=3性能会降低一点
+						//_self.pixelRatio =res.pixelRatio;
+						_self.pixelRatio = 2;
+					}
+				}
+			});
+			//#endif
+			this.cWidth = uni.upx2px(750);
+			this.cHeight = uni.upx2px(500);
 			this.$u.get(`/blog/category/list`).then(res => {
 				if (res.code == 200) {
 					res.data.forEach((item, index) => {
