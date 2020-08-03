@@ -9,10 +9,10 @@ const install = (Vue, vm) => {
 	if (process.env.NODE_ENV === 'development'){
 		baseUrl = '/api'
 	} else {
-		baseUrl = 'http://blog.coderm.club'
+		baseUrl = ''
 	}
 	Vue.prototype.$u.http.setConfig({
-		baseUrl: 'http://blog.coderm.club', // 请求的本域名
+		baseUrl: '', // 请求的本域名
 		method: 'POST',
 		// 设置为json，返回后会对数据进行一次JSON.parse()
 		dataType: 'json',
