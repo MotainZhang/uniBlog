@@ -1,6 +1,6 @@
 {
-    "name" : "strawberry",
-    "appid" : "__UNI__40C70E1",
+    "name" : "11",
+    "appid" : "__UNI__770740D",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -50,60 +50,8 @@
             /* ios打包配置 */
             "ios" : {},
             /* SDK配置 */
-            "sdkConfigs" : {
-                "ad" : {}
-            },
-            "icons" : {
-                "android" : {
-                    "hdpi" : "",
-                    "xhdpi" : "",
-                    "xxhdpi" : "",
-                    "xxxhdpi" : ""
-                },
-                "ios" : {
-                    "appstore" : "",
-                    "ipad" : {
-                        "app" : "",
-                        "app@2x" : "",
-                        "notification" : "",
-                        "notification@2x" : "",
-                        "proapp@2x" : "",
-                        "settings" : "",
-                        "settings@2x" : "",
-                        "spotlight" : "",
-                        "spotlight@2x" : ""
-                    },
-                    "iphone" : {
-                        "app@2x" : "",
-                        "app@3x" : "",
-                        "notification@2x" : "",
-                        "notification@3x" : "",
-                        "settings@2x" : "",
-                        "settings@3x" : "",
-                        "spotlight@2x" : "",
-                        "spotlight@3x" : ""
-                    }
-                }
-            }
+            "sdkConfigs" : {}
         }
-    },
-    "h5" : {
-        "devServer" : {
-            "port" : 8000,
-            "disableHostCheck" : true,
-            "proxy" : {
-                "/api" : {
-                    "target" : "http://localhost:6060", //请求的目标域名
-                    "changeOrigin" : true,
-                    "secure" : false,
-                    "pathRewrite" : {
-                        //使用代理； 告诉他你这个连接要用代理
-                        "^/api" : "/"
-                    }
-                }
-            }
-        },
-        "title" : "个人博客"
     },
     /* 快应用特有相关 */
     "quickapp" : {},
@@ -113,8 +61,7 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true,
-        "permission" : {}
+        "usingComponents" : true
     },
     "mp-alipay" : {
         "usingComponents" : true
