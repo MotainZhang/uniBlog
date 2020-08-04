@@ -1,6 +1,6 @@
 <template>
 	<view class="app-article content">
-		<w-loading text="加载中.." mask="true" click="true" ref="loading"></w-loading>
+		<loading text="加载中.." mask="true" click="true" ref="loading"></loading>
 		<view class="post-header" v-if="loading">
 			<view class="post-title">{{ articleDetail.title }}</view>
 			<view class="article-desc">

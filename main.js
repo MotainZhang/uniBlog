@@ -2,8 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import uView from "uview-ui";
 Vue.use(uView);
-import wLoading from "./components/w-loading/w-loading.vue";
-Vue.component('w-loading',wLoading)
+import loading from "./components/loading/w-loading.vue";
+Vue.component('loading',loading)
 Vue.config.productionTip = false
 
 App.mpType = 'app'

@@ -28,16 +28,16 @@
 				</view>
 			</view>
 		</view>
-		<ygc-comment ref="ygcComment" :placeholder="'发布评论'" @pubComment="pubComment"></ygc-comment>
+		<zjsComment ref="zjsComment" :placeholder="'发布评论'" @pubComment="pubComment"></zjsComment>
 	</view>
 </template>
 
 <script>
-import ygcComment from '@/components/ygc-comment/ygc-comment.vue';
+import zjsComment from '@/components/comment/zjs-comment.vue';
 export default {
 	name: 'comment',
 	components: {
-		ygcComment
+		zjsComment
 	},
 	data() {
 		return {};
@@ -67,7 +67,7 @@ export default {
 		},
 		toggleMask(type, item) {
 			this.commentId = item.id;
-			this.$refs.ygcComment.toggleMask(type);
+			this.$refs.zjsComment.toggleMask(type);
 		},
 		pubComment(commentContent1) {
 			let params = {
@@ -80,8 +80,8 @@ export default {
 			};
 			this.$u.post('/blog/discuss', params).then(res => {
 				if (res.code == 200) {
-					this.$refs.ygcComment.toggleMask();
-					this.$refs.ygcComment.content = '';
+					this.$refs.zjsComment.toggleMask();
+					this.$refs.zjsComment.content = '';
 					this.$emit('refreshList', res.data.rows);
 				}
 			});

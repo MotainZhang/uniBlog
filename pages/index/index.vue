@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<w-loading text="加载中.." mask="true" click="true" ref="loading"></w-loading>
+		<loading text="加载中.." mask="true" click="true" ref="loading"></loading>
 		<u-card v-if="loading" class="articleItem" v-for="(item, index) in articleList" :key="index" :title="item.title" :title-size="40" :sub-title="item.subTitle">
 			<view class="" slot="body" @click="goArticleDetail(item)"><view class="article-detail" v-html="tranferHtml(item.content)"></view></view>
 			<view class="" slot="foot">

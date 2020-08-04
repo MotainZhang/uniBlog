@@ -12,7 +12,7 @@ const install = (Vue, vm) => {
 		baseUrl = ''
 	}
 	Vue.prototype.$u.http.setConfig({
-		baseUrl: '', // 请求的本域名
+		baseUrl: baseUrl, // 请求的本域名
 		method: 'POST',
 		// 设置为json，返回后会对数据进行一次JSON.parse()
 		dataType: 'json',

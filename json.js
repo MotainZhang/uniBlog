@@ -1,30 +1,55 @@
 const tabList = [{
-	name: '关注',
-	id: '1',
-}, {
-	name: '推荐',
-	id: '2'
-}, {
-	name: '体育',
-	id: '3'
-}, {
-	name: '热点',
-	id: '4'
-}, {
-	name: '财经',
-	id: '5'
+	name: '新闻',
+	url: '/touch/reconstruct/article/list/BBM54PGAwangning/',
+	alias:'BBM54PGAwangning'
 }, {
 	name: '娱乐',
-	id: '6'
+	url: '/touch/reconstruct/article/list/BA10TA81wangning/',
+	alias:'BA10TA81wangning'
+}, {
+	name: '体育',
+	url: '/touch/reconstruct/article/list/BA8E6OEOwangning/',
+	alias:'BA8E6OEOwangning'
+}, {
+	name: '财经',
+	url: '/touch/reconstruct/article/list/BA8EE5GMwangning/',
+	alias:'BA8EE5GMwangning'
 }, {
 	name: '军事',
-	id: '7'
+	url: '/touch/reconstruct/article/list/BAI67OGGwangning/',
+	alias:'BAI67OGGwangning'
 }, {
-	name: '历史',
-	id: '8'
+	name: '科技',
+	url: '/touch/reconstruct/article/list/BA8D4A3Rwangning/',
+	alias:'BA8D4A3Rwangning'
 }, {
-	name: '本地',
-	id: '9'
+	name: '手机',
+	url: '/touch/reconstruct/article/list/BAI6I0O5wangning/',
+	alias:'BAI6I0O5wangning'
+}, {
+	name: '数码',
+	url: '/touch/reconstruct/article/list/BAI6JOD9wangning/',
+	alias:'BAI6JOD9wangning'
+}, {
+	name: '时尚',
+	url: '/touch/reconstruct/article/list/BA8F6ICNwangning/',
+	alias:'BA8F6ICNwangning'
+}, {
+	name: '游戏',
+	url: '/touch/reconstruct/article/list/BAI6RHDKwangning/',
+	alias:'BAI6RHDKwangning'
+}, {
+	name: '教育',
+	url: '/touch/reconstruct/article/list/BA8FF5PRwangning/',
+	alias:'BA8FF5PRwangning'
+}, {
+	name: '健康',
+	url: '/touch/reconstruct/article/list/BDC4QSV3wangning/',
+	alias:'BDC4QSV3wangning'
+}, {
+	name: '旅游',
+	url: '/touch/reconstruct/article/list/BEO4GINLwangning/',
+	alias:'BEO4GINLwangning'
 }];
 const newsList = [{
 		id: 1,

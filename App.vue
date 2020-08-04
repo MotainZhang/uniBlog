@@ -14,4 +14,5 @@ export default {
 <style lang="scss">
 @import 'uview-ui/index.scss';
 @import './common/scss/common.scss';
+@import '@/components/html-parse/parse.css';
 </style>
