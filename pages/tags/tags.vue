@@ -49,27 +49,46 @@ export default {
 			commentForm: {
 				content: ''
 			},
-			stateTab:true
+			stateTab: true
 		};
 	},
-	onShow(){
+	onShow() {
 		if (this.stateTab) {
 			this.getServerData();
-			this.getComment()
+			this.getComment();
 		}
 		this.stateTab = true;
 	},
 	onLoad() {
 		this.getServerData();
-		this.getComment()
+		this.getComment();
 		this.stateTab = false;
 	},
 	methods: {
 		// 获取非文章详情页评论
 		getComment() {
+			let userId = uni.getStorageSync('userId').toString();
 			this.$u.get(`/blog/article/-1`).then(res => {
 				if (res.code == 200) {
 					this.commentList = res.data.comments;
+					this.commentList.forEach((item, index) => {
+						if (item.likeUserIds) {
+							item.likeUserIds = item.likeUserIds.toString();
+							if (item.likeUserIds.indexOf(userId) != -1) {
+								item.isLike = 1;
+							}
+						}
+						if (item.replies.length > 0) {
+							item.replies.forEach((replyItem, index) => {
+								if (replyItem.likeUserIds) {
+									replyItem.likeUserIds = replyItem.likeUserIds.toString();
+									if (replyItem.likeUserIds.indexOf(userId) != -1) {
+										replyItem.isLike = 1;
+									}
+								}
+							});
+						}
+					});
 				}
 			});
 		},
@@ -80,8 +99,8 @@ export default {
 		//提交评论
 		commentSubmit() {
 			let params = {
-				isLike:0,
-				likeNum:0,
+				isLike: 0,
+				likeNum: 0,
 				articleId: this.articleId,
 				content: this.commentForm.content,
 				userId: uni.getStorageSync('userId')

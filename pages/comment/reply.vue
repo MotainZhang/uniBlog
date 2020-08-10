@@ -57,24 +57,71 @@ export default {
 		// 点赞
 		getLike(index) {
 			if (index === 0 || index > 0) {
-				this.comment.replies[index].isLike  == 1?this.comment.replies[index].isLike = 0:this.comment.replies[index].isLike = 1;
+				this.comment.replies[index].isLike == 1 ? (this.comment.replies[index].isLike = 0) : (this.comment.replies[index].isLike = 1);
 				if (this.comment.replies[index].isLike == 1) {
 					this.comment.replies[index].likeNum++;
+					this.commitLike(1, this.comment.replies[index], 0);
 				} else {
-					if(this.comment.replies[index].likeNum > 0){
+					if (this.comment.replies[index].likeNum > 0) {
 						this.comment.replies[index].likeNum--;
+						this.commitLike(0, this.comment.replies[index], 0);
 					}
 				}
 			} else {
-				this.comment.isLike == 1?this.comment.isLike = 0:this.comment.isLike = 1;
+				this.comment.isLike == 1 ? (this.comment.isLike = 0) : (this.comment.isLike = 1);
 				if (this.comment.isLike == 1) {
+					this.comment.likeNum++;
+					this.commitLike(1, this.comment, 1);
+				} else {
 					if (this.comment.likeNum > 0) {
 						this.comment.likeNum--;
+						this.commitLike(0, this.comment, 1);
 					}
-				} else {
-					this.comment.likeNum++;
 				}
 			}
+		},
+		// 评论点赞
+		commitLike(isLike, comment, type) {
+			let userId = uni.getStorageSync('userId');
+			if (isLike == 1) {
+				if (comment.likeUserIds) {
+					comment.likeUserIds = comment.likeUserIds.toString();
+					if (comment.likeUserIds.indexOf(userId) == -1) {
+						if (this.endsWith(comment.likeUserIds, ',')) {
+							comment.likeUserIds = comment.likeUserIds + userId;
+						} else {
+							comment.likeUserIds = comment.likeUserIds + ',' + userId;
+						}
+					}
+				} else {
+					comment.likeUserIds = userId;
+				}
+			} else {
+				if (comment.likeUserIds) {
+					comment.likeUserIds = comment.likeUserIds.toString();
+					if (comment.likeUserIds.indexOf(userId) != -1) {
+						comment.likeUserIds = comment.likeUserIds.replace(userId, '');
+					}
+				}
+			}
+			let params = {
+				replyId: comment.id,
+				id: comment.id,
+				isLike: comment.isLike,
+				likeNum: comment.likeNum,
+				userId: userId,
+				likeUserIds: comment.likeUserIds
+			};
+			if (type == 1) {
+				delete params.replyId;
+			}
+			this.$u.api.updateLikeNum(params).then(res => {
+				if (res.code == 200) {
+				}
+			});
+		},
+		endsWith(str, split) {
+			return str.slice(-split.length) == split;
 		}
 	}
 };

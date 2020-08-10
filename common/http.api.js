@@ -5,13 +5,15 @@ const install = (Vue, vm) => {
 	let getUserList = (params = {}) => vm.$u.get('/blog/user/list', params);
 	let getNews = (params = {}) => vm.$u.post('/blog/user/getNews', params);
 	let readerNews = (params = {}) => vm.$u.post('/blog/user/readerNews', params);
+	let updateLikeNum = (params = {}) => vm.$u.post('/blog/discuss/updateLikeNum', params);
 	vm.$u.api = {
 		login,
 		register,
 		getUserList,
 		getArticleList,
 		getNews,
-		readerNews
+		readerNews,
+		updateLikeNum
 	};
 }
 

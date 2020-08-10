@@ -56,14 +56,45 @@ export default {
 		},
 		// 点赞
 		getLike(item) {
-			item.isLike == 1?item.isLike = 0:item.isLike = 1
+			let userId = uni.getStorageSync('userId');
+			item.isLike == 1 ? (item.isLike = 0) : (item.isLike = 1);
 			if (item.isLike == 1) {
 				item.likeNum++;
+				if (item.likeUserIds) {
+					item.likeUserIds = item.likeUserIds.toString();
+					if (item.likeUserIds.indexOf(userId) == -1) {
+						if (this.endsWith(item.likeUserIds, ',')) {
+							item.likeUserIds = item.likeUserIds + userId;
+						} else {
+							item.likeUserIds = item.likeUserIds + ',' + userId;
+						}
+					}
+				} else {
+					item.likeUserIds = userId;
+				}
 			} else {
 				if (item.likeNum > 0) {
 					item.likeNum--;
+					if (item.likeUserIds) {
+						item.likeUserIds = item.likeUserIds.toString();
+						if (item.likeUserIds.indexOf(userId) != -1) {
+							item.likeUserIds = item.likeUserIds.replace(userId, '');
+						}
+					}
 				}
 			}
+			this.$u.api
+				.updateLikeNum({
+					id: item.id,
+					isLike: item.isLike,
+					likeNum: item.likeNum,
+					userId: uni.getStorageSync('userId'),
+					likeUserIds: item.likeUserIds
+				})
+				.then(res => {
+					if (res.code == 200) {
+					}
+				});
 		},
 		toggleMask(type, item) {
 			this.commentId = item.id;
@@ -85,6 +116,9 @@ export default {
 					this.$emit('refreshList', res.data.rows);
 				}
 			});
+		},
+		endsWith(str, split) {
+			return str.slice(-split.length) == split;
 		}
 	}
 };
