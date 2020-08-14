@@ -1,3 +1,9 @@
+// 图床配置
+const imgConfig = {
+	action:'https://api.superbed.cn/upload',
+	token:'bac1ecae20ad4e7c94bafd5825163089'
+}
+// 获取网易新闻接口配置
 const tabList = [{
 	name: '新闻',
 	url: '/touch/reconstruct/article/list/BBM54PGAwangning/',
@@ -51,6 +57,21 @@ const tabList = [{
 	url: '/touch/reconstruct/article/list/BEO4GINLwangning/',
 	alias:'BEO4GINLwangning'
 }];
+const evaList = [{
+		src: 'http://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/77c6a7efce1b9d1663174705fbdeb48f8d546486.jpg',
+		nickname: 'Ranth Allngal',
+		time: '09-20 12:54',
+		zan: '54',
+		content: '评论不要太苛刻，不管什么产品都会有瑕疵，客服也说了可以退货并且商家承担运费，我觉得至少态度就可以给五星。'
+	},
+	{
+		src: 'http://img0.imgtn.bdimg.com/it/u=2396068252,4277062836&fm=26&gp=0.jpg',
+		nickname: 'Ranth Allngal',
+		time: '09-20 12:54',
+		zan: '54',
+		content: '楼上说的好有道理。'
+	}
+]
 const newsList = [{
 		id: 1,
 		title: '从亲密无间到相爱相杀，这就是人类一败涂地的真相',
@@ -137,23 +158,8 @@ const newsList = [{
 		type: 3,
 	},
 ]
-const evaList = [{
-		src: 'http://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/77c6a7efce1b9d1663174705fbdeb48f8d546486.jpg',
-		nickname: 'Ranth Allngal',
-		time: '09-20 12:54',
-		zan: '54',
-		content: '评论不要太苛刻，不管什么产品都会有瑕疵，客服也说了可以退货并且商家承担运费，我觉得至少态度就可以给五星。'
-	},
-	{
-		src: 'http://img0.imgtn.bdimg.com/it/u=2396068252,4277062836&fm=26&gp=0.jpg',
-		nickname: 'Ranth Allngal',
-		time: '09-20 12:54',
-		zan: '54',
-		content: '楼上说的好有道理。'
-	}
-]
-
 export default {
+	imgConfig,
 	tabList,
 	newsList,
 	evaList

@@ -6,6 +6,9 @@ const install = (Vue, vm) => {
 	let getNews = (params = {}) => vm.$u.post('/blog/user/getNews', params);
 	let readerNews = (params = {}) => vm.$u.post('/blog/user/readerNews', params);
 	let updateLikeNum = (params = {}) => vm.$u.post('/blog/discuss/updateLikeNum', params);
+	let createFriend = (params = {}) => vm.$u.post('/blog/friend', params);
+	let friendList = (params = {}) => vm.$u.post('/blog/friend/getFriendComment', params);
+	let friendLike = (params = {}) => vm.$u.post('/blog/friend/updateLikeNum', params);
 	vm.$u.api = {
 		login,
 		register,
@@ -13,7 +16,10 @@ const install = (Vue, vm) => {
 		getArticleList,
 		getNews,
 		readerNews,
-		updateLikeNum
+		updateLikeNum,
+		createFriend,
+		friendList,
+		friendLike
 	};
 }
 

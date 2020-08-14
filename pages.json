@@ -96,6 +96,31 @@
 				"navigationBarTitleText": "详情",
 				"navigationBarTextStyle": "black"
 			}
+		}, {
+			"path": "pages/firendCircle/firendCircle",
+			"style": {
+				"navigationBarTitleText": "发现",
+				"navigationBarTextStyle": "black",
+				"onReachBottomDistance": 50
+			}
+		}, {
+			"path": "pages/releaseFirendCircle/releaseFirendCircle",
+			"style": {
+				"navigationBarTitleText": "",
+				// #ifdef MP-WEIXIN
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"float": "right",
+							"text": "发表",
+							"color": "#18b566",
+							"fontSize": "16"
+						}]
+					}
+				}
+			}
 		}
 	],
 	"globalStyle": {
@@ -125,6 +150,12 @@
 				"iconPath": "static/img/fenlei.png",
 				"selectedIconPath": "static/img/classActive.png",
 				"text": "分类"
+			},
+			{
+				"pagePath": "pages/firendCircle/firendCircle",
+				"iconPath": "static/img/find.png",
+				"selectedIconPath": "static/img/findActive.png",
+				"text": "发现"
 			},
 			{
 				"pagePath": "pages/my/my",
