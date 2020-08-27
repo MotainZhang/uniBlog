@@ -9,6 +9,7 @@ const install = (Vue, vm) => {
 	let createFriend = (params = {}) => vm.$u.post('/blog/friend', params);
 	let friendList = (params = {}) => vm.$u.post('/blog/friend/getFriendComment', params);
 	let friendLike = (params = {}) => vm.$u.post('/blog/friend/updateLikeNum', params);
+	let friendById = (params = {}) => vm.$u.post('/blog/friend/findById', params);
 	vm.$u.api = {
 		login,
 		register,
@@ -19,7 +20,8 @@ const install = (Vue, vm) => {
 		updateLikeNum,
 		createFriend,
 		friendList,
-		friendLike
+		friendLike,
+		friendById
 	};
 }
 

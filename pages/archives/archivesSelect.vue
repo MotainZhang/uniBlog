@@ -1,6 +1,6 @@
 <template>
 	<view class="archivesContent">
-		<w-loading text="加载中.." mask="true" click="true" ref="loading"></w-loading>
+		<loading text="加载中.." mask="true" click="true" ref="loading"></loading>
 		<u-time-line v-if="loading">
 			<u-time-line-item nodeTop="2">
 				<template v-slot:node>

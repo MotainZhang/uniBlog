@@ -1,7 +1,8 @@
 <template>
 	<view class="content" id="content">
-		<u-notice-bar mode="horizontal" :list="noticeList"></u-notice-bar>
-		<uni-fab :pattern="pattern" :horizontal="horizontal" :vertical="vertical" :popMenu="popMenu" :direction="direction" @fabClick="linkToRelease"></uni-fab>
+		<loading text="加载中.." mask="true" click="true" ref="loading"></loading>
+		<u-notice-bar v-if="loading" mode="horizontal" :list="noticeList"></u-notice-bar>
+		<uni-fab v-if="loading" :pattern="pattern" :horizontal="horizontal" :vertical="vertical" :popMenu="popMenu" :direction="direction" @fabClick="linkToRelease"></uni-fab>
 		<view class="content-circle">
 			<view class="content-circle-box" v-for="(item, index) in circleData" :key="item.circleMegId">
 				<view class="headimg"><image class="img" :src="item.user.avatarUrl"></image></view>
@@ -65,6 +66,7 @@
 				</view>
 			</view>
 		</view>
+		<u-loadmore v-if="loading" :status="status" icon-type="iconType" :load-text="loadText" />
 		<zjsComment ref="zjsComment" :placeholder="placeholder" @pubComment="sendMsg"></zjsComment>
 	</view>
 </template>
@@ -79,7 +81,17 @@ export default {
 	},
 	data() {
 		return {
-			noticeList: ['请大家文明评论,谢谢啦!', '个人服务器请不要随便攻击！'],
+			page: 1,
+			pageSize: 10,
+			loading: false,
+			status: 'loadmore',
+			iconType: 'flower',
+			loadText: {
+				loadmore: '轻轻上拉',
+				loading: '努力加载中',
+				nomore: '实在没有了'
+			},
+			noticeList: ['请大家文明评论,谢谢啦!'],
 			userId: '',
 			userName: '',
 			pattern: {},
@@ -97,8 +109,12 @@ export default {
 		};
 	},
 	watch: {},
+	onReady() {
+		this.$refs.loading.open();
+	},
 	onShow() {
 		if (this.stateTab) {
+			this.page = 1;
 			this.circleData = [];
 			this.getData();
 		}
@@ -109,6 +125,35 @@ export default {
 		this.userName = uni.getStorageSync('userName');
 		this.getData();
 		this.stateTab = false;
+	},
+	onReachBottom() {
+		this.status = 'loading';
+		this.page = ++this.page;
+		this.$u.api.friendList({ page: this.page, pageSize: this.pageSize }).then(res => {
+			if (res.code == 200) {
+				if (res.data.rows.length == 0) {
+					this.status = 'nomore';
+					this.page = --this.page;
+				} else {
+					this.status = 'loadmore';
+					this.circleData = [...this.circleData, ...res.data.rows];
+					this.circleData.forEach((item, index) => {
+						if (item.images) {
+							item.imageList = item.images.split(',');
+						} else {
+							item.imageList = [];
+						}
+						item.isPraise = 0;
+						// 如果点赞过 回显状态防止重复点赞
+						item.friendLikes.forEach((likeItem, likeIndex) => {
+							if (likeItem.userId == this.userId) {
+								item.isPraise = 1;
+							}
+						});
+					});
+				}
+			}
+		});
 	},
 	methods: {
 		//自定义标题栏按钮
@@ -206,7 +251,21 @@ export default {
 				if (res.code == 200) {
 					this.$refs.zjsComment.toggleMask();
 					this.$refs.zjsComment.content = '';
-					this.getData();
+					this.getFriendById(this.commentMsg.friendId);
+				}
+			});
+		},
+		// 获取指定朋友圈数据局部刷新
+		getFriendById(id) {
+			this.$u.api.friendById({ id: id }).then(res => {
+				if (res.code == 200) {
+					this.listParse(res.data)
+					this.circleData.forEach((item, index) => {
+						if (item.id === res.data.id) {
+							this.circleData.splice(index,1,res.data)
+							return
+						}
+					});
 				}
 			});
 		},
@@ -221,24 +280,34 @@ export default {
 			});
 		},
 		getData() {
-			uni.showLoading({
-				title: '正在加载...',
-				mask: true
-			});
-			this.$u.api.friendList({}).then(res => {
-				if (res.code == 200) {
-					this.circleData = res.data.rows;
-					this.circleData.forEach((item, index) => {
-						item.imageList = item.images.split(',');
-						item.isPraise = 0;
-						// 如果点赞过 回显状态防止重复点赞
-						item.friendLikes.forEach((likeItem, likeIndex) => {
-							if (likeItem.userId == this.userId) {
-								item.isPraise = 1;
-							}
+			this.$u.api
+				.friendList({
+					page: this.page,
+					pageSize: this.pageSize
+				})
+				.then(res => {
+					if (res.code == 200) {
+						this.circleData = res.data.rows;
+						this.circleData.forEach((item, index) => {
+							this.listParse(item);
 						});
-					});
-					uni.hideLoading();
+						this.$refs.loading.close();
+						this.loading = true;
+					}
+				});
+		},
+		// 列表数据处理
+		listParse(item) {
+			if (item.images) {
+				item.imageList = item.images.split(',');
+			} else {
+				item.imageList = [];
+			}
+			item.isPraise = 0;
+			// 如果点赞过 回显状态防止重复点赞
+			item.friendLikes.forEach((likeItem, likeIndex) => {
+				if (likeItem.userId == this.userId) {
+					item.isPraise = 1;
 				}
 			});
 		},

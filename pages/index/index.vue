@@ -1,41 +1,70 @@
 <template>
-	<view class="content">
-		<loading text="加载中.." mask="true" click="true" ref="loading"></loading>
-		<u-card v-if="loading" class="articleItem" v-for="(item, index) in articleList" :key="index" :title="item.title" :title-size="40" :sub-title="item.subTitle">
-			<view class="" slot="body" @click="goArticleDetail(item)"><view class="article-detail" v-html="tranferHtml(item.content)"></view></view>
-			<view class="" slot="foot">
-				<view class="list-item-others">
-					<u-icon name="chat-fill" size="34" color="" :label="calcComments(item.comments)"></u-icon>
-					<u-icon name="eye-fill" size="34" color="" :label="item.viewCount.toString()"></u-icon>
-					<text class="splitLine"></text>
-					<u-icon name="tags-fill" size="34" color=""></u-icon>
-					<u-tag
-						style="margin-left: 10rpx;"
-						v-for="(tag, tagIndex) in item.tags"
-						:key="tagIndex"
-						color="#fff"
-						:border-color="tag.color"
-						:bg-color="tag.color"
-						:text="tag.name"
-						@click="goTagSelect(tag, 'tag')"
-					/>
-					<text class="splitLine"></text>
-					<u-icon name="bookmark-fill" size="34" color=""></u-icon>
-					<u-tag
-						style="margin-left: 10rpx;"
-						v-for="(category, categoryIndex) in item.categories"
-						:key="category.name"
-						color="#fff"
-						:border-color="category.color"
-						:bg-color="category.color"
-						:text="category.name"
-						@click="goTagSelect(category, 'category')"
-					/>
-				</view>
+	<view>
+		<u-navbar :is-back="false" title="">
+			<view class="slot-wrap">
+				<u-search
+					:show-action="true"
+					action-text="搜索"
+					input-align="center"
+					:animation="true"
+					placeholder="请输入关键字"
+					v-model="keyWords"
+					@search="getArticleList"
+					@custom="getArticleList"
+					@clear="resetsearch"
+				></u-search>
 			</view>
-		</u-card>
-		<u-back-top :scrollTop="scrollTop" :mode="mode" :icon-style="iconStyle"></u-back-top>
-		<u-loadmore v-if="loading" :status="status" icon-type="iconType" :load-text="loadText" />
+		</u-navbar>
+		<view class="content">
+			<loading text="加载中.." mask="true" click="true" ref="loading"></loading>
+			<u-card
+				v-if="loading"
+				class="articleItem"
+				v-for="(item, index) in articleList"
+				:padding="10"
+				:key="index"
+				:title="item.title"
+				:title-size="30"
+				:sub-title="item.subTitle"
+			>
+				<view class="" slot="body" @click="goArticleDetail(item)"><view class="article-detail" v-html="tranferHtml(item.content)"></view></view>
+				<view class="" slot="foot">
+					<view class="list-item-others">
+						<u-icon name="chat-fill" size="34" color="" :label="calcComments(item.comments)"></u-icon>
+						<u-icon name="eye-fill" size="34" color="" :label="item.viewCount.toString()"></u-icon>
+						<text class="splitLine"></text>
+						<u-icon name="tags-fill" size="34" color=""></u-icon>
+						<u-tag
+							style="margin-left: 10rpx;"
+							v-for="(tag, tagIndex) in item.tags"
+							:key="tagIndex"
+							color="#fff"
+							:border-color="tag.color"
+							:bg-color="tag.color"
+							:text="tag.name"
+							:size="tagSize"
+							@click="goTagSelect(tag, 'tag')"
+						/>
+						<text class="splitLine"></text>
+						<u-icon name="bookmark-fill" size="34" color=""></u-icon>
+						<u-tag
+							style="margin-left: 10rpx;"
+							v-for="(category, categoryIndex) in item.categories"
+							:key="category.name"
+							color="#fff"
+							:border-color="category.color"
+							:bg-color="category.color"
+							:text="category.name"
+							:size="tagSize"
+							@click="goTagSelect(category, 'category')"
+						/>
+					</view>
+				</view>
+			</u-card>
+			<u-empty v-if="ifSearch" mode="search"></u-empty>
+			<u-back-top :scrollTop="scrollTop" :mode="mode" :icon-style="iconStyle"></u-back-top>
+			<u-loadmore v-if="loading" :status="status" icon-type="iconType" :load-text="loadText" />
+		</view>
 	</view>
 </template>
 
@@ -44,6 +73,8 @@ import { translateMarkdown, calcCommentsCount } from '../../untils/index.js';
 export default {
 	data() {
 		return {
+			keyWords: '',
+			tagSize: 'mini',
 			loading: false,
 			status: 'loadmore',
 			iconType: 'flower',
@@ -53,6 +84,7 @@ export default {
 				nomore: '实在没有了'
 			},
 			page: 1,
+			pageSize: 10,
 			articleList: [],
 			scrollTop: 0,
 			mode: 'square',
@@ -60,7 +92,8 @@ export default {
 				fontSize: '32rpx',
 				color: '#2979ff'
 			},
-			stateTab: true
+			stateTab: true,
+			ifSearch: false
 		};
 	},
 	onReady() {
@@ -68,7 +101,8 @@ export default {
 	},
 	onShow() {
 		if (this.stateTab) {
-			this.articleList = []
+			this.articleList = [];
+			this.status = 'loading';
 			this.getArticleList();
 		}
 		this.stateTab = true;
@@ -83,10 +117,13 @@ export default {
 	onReachBottom() {
 		this.status = 'loading';
 		this.page = ++this.page;
-		this.$u.api.getArticleList({ page: this.page, pageSize: 10 }).then(res => {
+		const queryParams = { page: this.page, pageSize: this.pageSize };
+		if (this.keyWords) queryParams.keyword = this.keyWords;
+		this.$u.api.getArticleList(queryParams).then(res => {
 			if (res.code == 200) {
 				if (res.data.rows.length == 0) {
 					this.status = 'nomore';
+					this.page = --this.page;
 				} else {
 					this.status = 'loadmore';
 					this.articleList = [...this.articleList, ...res.data.rows];
@@ -103,21 +140,31 @@ export default {
 		});
 	},
 	methods: {
+		resetsearch(){
+			this.page = 1
+		},
 		getArticleList() {
-			this.status = 'loading';
-			this.$u.api.getArticleList({ pageSize: 10 }).then(res => {
+			const queryParams = { page: this.page, pageSize: this.pageSize };
+			if (this.keyWords) queryParams.keyword = this.keyWords;
+			this.$u.api.getArticleList(queryParams).then(res => {
 				if (res.code == 200) {
 					this.articleList = res.data.rows;
-					this.articleList.forEach((item, index) => {
-						item.tags.forEach((item1, index1) => {
-							item1.color = this.getRandomColor();
+					if (res.data.rows.length == 0) {
+						this.ifSearch = true;
+						this.loading = false;
+					} else {
+						this.articleList.forEach((item, index) => {
+							item.tags.forEach((item1, index1) => {
+								item1.color = this.getRandomColor();
+							});
+							item.categories.forEach((item2, index2) => {
+								item2.color = this.getRandomColor();
+							});
 						});
-						item.categories.forEach((item2, index2) => {
-							item2.color = this.getRandomColor();
-						});
-					});
-					this.$refs.loading.close();
-					this.loading = true;
+						this.$refs.loading.close();
+						this.ifSearch = false;
+						this.loading = true;
+					}
 				}
 			});
 		},
@@ -152,4 +199,14 @@ export default {
 	}
 };
 </script>
-<style scoped></style>
+<style scoped>
+.slot-wrap {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	/* 如果您想让slot内容占满整个导航栏的宽度 */
+	/* flex: 1; */
+	/* 如果您想让slot内容与导航栏左右有空隙 */
+	padding: 0 30rpx;
+}
+</style>

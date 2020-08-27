@@ -85,6 +85,7 @@ export default {
 			if (res.code == 200) {
 				if (res.data.rows.length == 0) {
 					this.status = 'nomore';
+					this.page = --this.page;
 				} else {
 					this.status = 'loadmore';
 					this.articleList = [...this.articleList, ...res.data.rows];
