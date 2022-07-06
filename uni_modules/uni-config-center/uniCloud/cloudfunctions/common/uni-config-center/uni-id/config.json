@@ -1,0 +1,69 @@
+{
+	"passwordSecret": "passwordSecret-demo",
+	"tokenSecret": "tokenSecret-demo",
+	"tokenExpiresIn": 604800,
+	"tokenExpiresThreshold": 259200,
+	"tokenMaxLimit": 0,
+	"passwordErrorLimit": 6,
+	"bindTokenToDevice": false,
+	"passwordErrorRetryTime": 3600,
+	"autoSetInviteCode": true,
+	"forceInviteCode": false,
+	"preferedAppPlatform": "app-plus",
+	"preferedWebPlatform": "h5",
+	"app-plus": {
+		"tokenExpiresIn": 604800,
+		"oauth": {
+			"weixin": {
+				"appid": "wx5fa4eeab8cc9e604",
+				"appsecret": "64c6d582208df99f376fa1cc2d56f1a1"
+			}
+		}
+	},
+	"mp-weixin": {
+		"oauth": {
+			"weixin": {
+				"appid": "微信小程序appid",
+				"appsecret": "微信小程序appsecret"
+			}
+		}
+	},
+	"h5-weixin": {
+		"oauth": {
+			"weixin": {
+				"appid": "微信公众号appid",
+				"appsecret": "微信公众号appsecret"
+			}
+		}
+	},
+	"mp-alipay": {
+		"oauth": {
+			"alipay": {
+				"appid": "支付宝小程序appid",
+				"privateKey": "支付宝小程序privateKey"
+			}
+		}
+	},
+	"mp-qq": {
+		"oauth": {
+			"qq": {
+				"appid": "qq小程序appid",
+				"appsecret": "qq小程序appsecret"
+			}
+		}
+	},
+	"service": {
+		"sms": {
+			"name": "重要",
+			"codeExpiresIn": 180,
+			"smsKey": "你的smsKey",
+			"smsSecret": "你的smsSecret",
+			"templateId": "你的短信模板ID"
+		},
+		"univerify": {
+			"appid": "App一键登录appid",
+			"apiKey": "App一键登录apiKey",
+			"apiSecret": "App一键登录apiSecret"
+		}
+	}
+}

@@ -1,0 +1,41 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": false,
+		"create": false,
+		"update": false,
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"id": {
+			"bsonType": "Number",
+			"description": "评论id"
+		},
+		"commentId": {
+			"bsonType": "Number",
+			"foreignKey": "blog-article-comment.id",
+			"description": "关联评论id"	
+		},
+		"articleId": { 
+			"bsonType": "Number",
+			"foreignKey": "blog-article.id",
+			"description": "关联文章id"	
+		},
+		"content": { 
+			"description": "评论内容"	
+		},
+		"isLike": {
+			"description": "是否点赞"		
+		},
+		"likeNum": {
+			"description": "点赞次数"
+		},
+		"likeUserIds": {
+			"description": "所有点赞人的用户id数组"
+		}
+	}
+}

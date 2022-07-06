@@ -1,20 +1,24 @@
 <template>
 	<view class="archivesContent">
-		<loading text="加载中.." mask="true" click="true" ref="loading"></loading>
-		<u-time-line v-if="loading">
-			<u-time-line-item nodeTop="2"  v-if="articleList.length > 0">
+		<u-time-line>
+			<u-time-line-item nodeTop="2" v-if="articleList.length > 0">
 				<template v-slot:node>
-					<view class="u-node" style="background: #19be6b;"><u-icon name="pushpin-fill" color="#fff" :size="24"></u-icon></view>
+					<view class="u-node" style="background: #19be6b;">
+						<u-icon name="pushpin-fill" color="#fff" :size="24"></u-icon>
+					</view>
 				</template>
 				<template v-slot:content>
 					<view>
-						<view class="u-order-desc" style="color:#19be6b;font-size: 30rpx;">Nice! {{ articleCount }} posts in total. Keep on posting.</view>
+						<view class="u-order-desc" style="color:#19be6b;font-size: 30rpx;">Nice! {{ articleCount }}
+							posts in total. Keep on posting.</view>
 					</view>
 				</template>
 			</u-time-line-item>
 			<u-time-line-item v-for="(item, index) in articleList" :key="index">
 				<template v-slot:node>
-					<view class="u-sec-node" style="background:#1890ff;"><u-icon name="star-fill" color="#fff" :size="12"></u-icon></view>
+					<view class="u-sec-node" style="background:#1890ff;">
+						<u-icon name="star-fill" color="#fff" :size="12"></u-icon>
+					</view>
 				</template>
 				<template v-slot:content>
 					<view>
@@ -25,135 +29,126 @@
 			</u-time-line-item>
 		</u-time-line>
 		<u-back-top :scrollTop="scrollTop" :mode="mode" :icon-style="iconStyle"></u-back-top>
-		<u-loadmore v-if="loading" :status="status" icon-type="iconType" :load-text="loadText" />
+		<u-loadmore :status="status" icon-type="iconType" :load-text="loadText" />
 	</view>
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			loading: false,
-			status: 'loadmore',
-			iconType: 'flower',
-			loadText: {
-				loadmore: '轻轻上拉',
-				loading: '努力加载中',
-				nomore: '实在没有了'
-			},
-			page: 1,
-			articleList: [],
-			scrollTop: 0,
-			mode: 'square',
-			iconStyle: {
-				fontSize: '32rpx',
-				color: '#2979ff'
-			},
-			articleCount: 0,
-			stateTab: true
-		};
-	},
-	onShow() {
-		if (this.stateTab) {
-			let params = {
+	export default {
+		data() {
+			return {
+				status: 'loadmore',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
 				page: 1,
-				pageSize: 20
+				pageSize: 20,
+				articleList: [],
+				scrollTop: 0,
+				mode: 'square',
+				iconStyle: {
+					fontSize: '32rpx',
+					color: '#2979ff'
+				},
+				articleCount: 0,
 			};
-			this.articleList = []
-			this.getArchivesList(params);
-		}
-		this.stateTab = true;
-	},
-	onReady() {
-		this.$refs.loading.open();
-	},
-	onLoad(option) {
-		let params = {
-			page: 1,
-			pageSize: 20
-		};
-		this.getArchivesList(params);
-		this.stateTab = false;
-	},
-	onPageScroll(e) {
-		this.scrollTop = e.scrollTop;
-	},
-	onReachBottom() {
-		this.status = 'loading';
-		this.page = ++this.page;
-		this.$u.api.getArticleList({ page: this.page, pageSize: 10 }).then(res => {
-			if (res.code == 200) {
-				if (res.data.rows.length == 0) {
-					this.status = 'nomore';
-					this.page = --this.page;
-				} else {
-					this.status = 'loadmore';
-					this.articleList = [...this.articleList, ...res.data.rows];
-				}
-			}
-		});
-	},
-	methods: {
-		getArchivesList(params) {
-			this.status = 'loading';
-			this.$u.api.getArticleList(params).then(res => {
-				if (res.code == 200) {
-					this.articleList = res.data.rows;
-					this.articleCount = res.data.count;
-					this.$refs.loading.close();
-					this.loading = true;
-				}
-			});
 		},
-		goArticleDetail(item) {
-			this.$u.route({
-				url: 'pages/articleDetail/articleDetail',
-				params: {
-					id: item.id
-				}
-			});
+		onShow() {
+			this.page = 1;
+			this.getArchivesList();
+		},
+		onReady() {
+
+		},
+		onLoad(option) {
+			
+		},
+		onPageScroll(e) {
+			this.scrollTop = e.scrollTop;
+		},
+		onReachBottom() {
+			this.status = 'loading';
+			this.page = ++this.page;
+			this.getArchivesList()
+		},
+		methods: {
+			getArchivesList() {
+				this.status = 'loading';
+				vk.callFunction({
+					url: 'client/article/kh/getList',
+					title: '',
+					data: {
+						pageIndex: this.page,
+						pageSize: this.pageSize
+					},
+				}).then(res => {
+					if (res.code == 0) {
+						if (res.rows.length == 0) {
+							this.status = 'nomore';
+							this.page = --this.page;
+						} else {
+							this.status = 'loadmore';
+							this.articleList = [...this.articleList, ...res.rows];
+							this.articleCount = res.total
+						}
+
+					}
+				});
+			},
+			goArticleDetail(item) {
+				this.$u.route({
+					url: 'subPackages/articleDetail/articleDetail',
+					params: {
+						id: item._id
+					}
+				});
+			}
 		}
-	}
-};
+	};
 </script>
 
 <style scoped>
-.archivesContent {
-	padding: 50rpx;
-}
-.u-sec-node {
-	width: 25rpx;
-	height: 25rpx;
-	border-radius: 100rpx;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: #1890ff;
-}
-.u-node {
-	width: 50rpx;
-	height: 50rpx;
-	border-radius: 100rpx;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: #d0d0d0;
-}
+	.archivesContent {
+		padding: 50rpx;
+	}
 
-.u-order-title {
-	color: #333333;
-	font-weight: bold;
-	font-size: 32rpx;
-}
+	.u-sec-node {
+		width: 25rpx;
+		height: 25rpx;
+		border-radius: 100rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #1890ff;
+	}
 
-.u-order-desc {
-	color: #1890ff;
-	font-size: 28rpx;
-	margin-bottom: 6rpx;
-}
+	.u-node {
+		width: 50rpx;
+		height: 50rpx;
+		border-radius: 100rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #d0d0d0;
+	}
 
-.u-order-time {
-	color: rgb(200, 200, 200);
-	font-size: 26rpx;
-}
+	.u-order-title {
+		color: #333333;
+		font-weight: bold;
+		font-size: 32rpx;
+	}
+
+	.u-order-desc {
+		color: #1890ff;
+		font-size: 28rpx;
+		margin-bottom: 6rpx;
+	}
+
+	.u-order-time {
+		color: rgb(200, 200, 200);
+		font-size: 26rpx;
+	}
 </style>

@@ -1,0 +1,30 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": false,
+		"create": false,
+		"update": false,
+		"delete": false
+	},
+	"properties": {
+		"_id": { // 字段名称，每个表都会带有_id字段
+			"description": "ID，系统自动生成"
+			// 这里还有很多字段属性可以设置
+		},
+		"id": {
+			"bsonType": "Number",
+			"description": "文章ID"
+		},
+		"title": {
+			"description": "文章标题"
+
+		},
+		"content": {
+			"description": "文章内容"
+		},
+		"viewCount": {
+			"description": "浏览次数"
+		}
+	}
+}

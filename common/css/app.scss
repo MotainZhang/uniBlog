@@ -1,0 +1,10 @@
+/* 这里是你自己写的全局css样式 */
+/* #ifdef H5 */
+.uni-mask,
+.uni-modal,
+uni-toast,
+uni-modal,
+.uni-actionsheet {
+	z-index: 999999 !important;
+}
+/* #endif */

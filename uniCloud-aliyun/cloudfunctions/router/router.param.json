@@ -1,0 +1,14 @@
+
+// 运行方法：右键云函数根目录（如router目录），并点击【运行-本地云函数】即可。
+// 若函数需要登录才能访问，则填写uni_id_token的值，值为对应用户的token（可直接从数据库中复制1个过来）
+// $url 是 云函数运行路径，如 user/pub/checkToken
+// data 是 请求参数，为标准json格式（属性名需要加双引号）
+
+{
+	"uni_id_token":"",
+	"$url":"client/pub.test.test2",
+	"data":{
+		"username":"admin",
+		"password":"123456"
+	}
+}

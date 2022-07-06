@@ -1,0 +1,34 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": false,
+		"create": false,
+		"update": false,
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"friendId": {
+			"foreignKey": "blog-friend._id",
+			"description": "关联主表id"	
+		},
+		"replyUserId": {
+			"description": "回复人的id"		
+		},
+		"replyUserName": {
+			"description": "回复人的名字"		
+		},
+		"userId": {
+			"description": "主人id"		
+		},
+		"userName": {
+			"description": "主人名字"		
+		},
+		"content": {
+			"description": "回复内容"		
+		}
+	}
+}

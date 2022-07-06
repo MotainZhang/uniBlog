@@ -1,0 +1,25 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": false,
+		"create": false,
+		"update": false,
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"friendId": {
+			"foreignKey": "blog-friend._id",
+			"description": "关联主表id"	
+		},
+		"userName": {
+			"description": "点赞用户名称"		
+		},
+		"isPraise": {
+			"description": "是否点赞"		
+		}
+	}
+}

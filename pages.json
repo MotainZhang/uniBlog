@@ -1,7 +1,4 @@
 {
-	"easycom": {
-		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
-	},
 	"pages": [{
 			"path": "pages/login/login",
 			"style": {
@@ -19,7 +16,8 @@
 				"navigationBarTitleText": "注册",
 				"navigationBarTextStyle": "black"
 			}
-		}, {
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "首页",
@@ -36,99 +34,25 @@
 			}
 		},
 		{
-			"path": "pages/tags/tags",
-			"style": {
-				"navigationBarTitleText": "分类",
-				"navigationBarTextStyle": "black",
-				"onReachBottomDistance": 50
-			}
-		}, {
 			"path": "pages/my/my",
 			"style": {
 				"navigationBarTitleText": "关于",
 				"navigationBarTextStyle": "black",
 				"onReachBottomDistance": 50
 			}
-		}, {
-			"path": "pages/articleDetail/articleDetail",
-			"style": {
-				"navigationBarTitleText": "文章详情",
-				"navigationBarTextStyle": "black",
-				"onReachBottomDistance": 50
-			}
-		}, {
-			"path": "pages/comment/reply",
-			"style": {
-				"navigationBarTitleText": "评论详情",
-				"navigationBarTextStyle": "black",
-				"onReachBottomDistance": 50
-			}
-		}, {
-			"path": "pages/my/editUser",
-			"style": {
-				"navigationBarTitleText": "修改信息",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
-			"path": "pages/archives/archivesSelect",
-			"style": {
-				"navigationBarTitleText": "归档查询",
-				"navigationBarTextStyle": "black"
-			}
-		},
+		}
+		// #ifndef MP-WEIXIN
+		,
 		{
-			"path": "pages/news/index",
-			"style": {
-				"navigationBarTitleText": "看一看",
-				"navigationBarTextStyle": "black"
-			}
-		},
-		{
-			"path": "pages/news/details/details",
-			"style": {
-				"navigationBarTitleText": "详情",
-				"navigationBarTextStyle": "black"
-			}
-		},
-		{
-			"path": "pages/news/details/videoDetails",
-			"style": {
-				"navigationBarTitleText": "详情",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
 			"path": "pages/firendCircle/firendCircle",
 			"style": {
 				"navigationBarTitleText": "发现",
 				"navigationBarTextStyle": "black",
 				"onReachBottomDistance": 50
 			}
-		}, {
-			"path": "pages/releaseFirendCircle/releaseFirendCircle",
-			"style": {
-				"navigationBarTitleText": "",
-				// #ifdef MP-WEIXIN
-				"navigationStyle": "custom",
-				// #endif
-				"app-plus": {
-					"titleNView": {
-						"buttons": [{
-							"float": "right",
-							"text": "发表",
-							"color": "#18b566",
-							"fontSize": "16"
-						}]
-					}
-				}
-			}
 		}
+		// #endif
 	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	},
 	"tabBar": {
 		"color": "#909399",
 		"selectedColor": "#303133",
@@ -144,19 +68,17 @@
 				"iconPath": "static/img/guidang.png",
 				"selectedIconPath": "static/img/guidangActive.png",
 				"text": "归档"
-			},
-			{
-				"pagePath": "pages/tags/tags",
-				"iconPath": "static/img/fenlei.png",
-				"selectedIconPath": "static/img/classActive.png",
-				"text": "分类"
-			},
+			}
+			// #ifndef MP-WEIXIN
+			,
 			{
 				"pagePath": "pages/firendCircle/firendCircle",
 				"iconPath": "static/img/find.png",
 				"selectedIconPath": "static/img/findActive.png",
 				"text": "发现"
-			},
+			}
+			// #endif
+			,
 			{
 				"pagePath": "pages/my/my",
 				"iconPath": "static/img/my.png",
@@ -164,5 +86,80 @@
 				"text": "关于"
 			}
 		]
+	},
+	"subPackages": [{
+		"root": "subPackages",
+		"pages": [{
+				"path": "articleDetail/articleDetail",
+				"style": {
+					"navigationBarTitleText": "文章详情",
+					"navigationBarTextStyle": "black",
+					"onReachBottomDistance": 50
+				}
+			},
+			{
+				"path": "archivesSelect/archivesSelect",
+				"style": {
+					"navigationBarTitleText": "归档查询",
+					"navigationBarTextStyle": "black",
+					"onReachBottomDistance": 50
+				}
+			}
+			// #ifndef MP-WEIXIN
+			,
+			{
+				"path": "tags/tags",
+				"style": {
+					"navigationBarTitleText": "分类讨论",
+					"navigationBarTextStyle": "black",
+					"onReachBottomDistance": 50
+				}
+			}
+			// #endif
+			, {
+				"path": "editUser/editUser",
+				"style": {
+					"navigationBarTitleText": "修改信息",
+					"navigationBarTextStyle": "black"
+				}
+			}
+			// #ifndef MP-WEIXIN
+			,
+			{
+				"path": "releaseFirendCircle/releaseFirendCircle",
+				"style": {
+					"navigationBarTitleText": "",
+					// #ifdef MP-WEIXIN
+					"navigationStyle": "custom",
+					// #endif
+					"app-plus": {
+						"titleNView": {
+							"buttons": [{
+								"float": "right",
+								"text": "发表",
+								"color": "#18b566",
+								"fontSize": "16"
+							}]
+						}
+					}
+				}
+			}
+			// #endif
+			,
+			{
+				"path": "search/search",
+				"style": {
+					"navigationBarTitleText": "搜索",
+					"navigationBarTextStyle": "black",
+					"onReachBottomDistance": 50
+				}
+			}
+		]
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
 	}
 }

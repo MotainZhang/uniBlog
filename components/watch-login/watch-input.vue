@@ -8,7 +8,7 @@
 			:maxlength="maxlength" 
 			:placeholder="placeholder" 
 			:password="type==='password'&&!showPassword" 
-			
+			autocomplete="off"
 			@input="$emit('input', $event.target.value)"
 			@blur="$emit('blur', $event.target.value)"
 			@focus="$emit('focus', $event.target.value)"

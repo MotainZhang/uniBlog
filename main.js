@@ -1,22 +1,59 @@
-import Vue from 'vue'
 import App from './App'
-import uView from "uview-ui";
+import store from './store'
+import config from '@/app.config.js'
+
+// 引入 uView UI
+import uView from './uni_modules/vk-uview-ui';
+// 引入 vk框架前端
+import vk from './uni_modules/vk-unicloud';
+// #ifndef VUE3
+import Vue from 'vue'
+
+// 引入 uView UI
 Vue.use(uView);
-import loading from "./components/loading/w-loading.vue";
-Vue.component('loading',loading)
+
+// 引入 vk框架前端
+Vue.use(vk);
+
+// 初始化 vk框架
+Vue.prototype.vk.init({
+  Vue,               // Vue实例
+  config,	           // 配置
+});
+
 Vue.config.productionTip = false
 
 App.mpType = 'app'
 
 const app = new Vue({
-    ...App
-})
-// http拦截器，此为需要加入的内容，如果不是写在common目录，请自行修改引入路径
-import httpInterceptor from '@/common/http.interceptor.js'
-// 这里需要写在最后，是为了等Vue创建对象完成，引入"app"对象(也即页面的"this"实例)
-Vue.use(httpInterceptor, app)
-// http接口API集中管理引入部分
-import httpApi from '@/common/http.api.js'
-Vue.use(httpApi, app)
+  store,
+  ...App
+});
 
-app.$mount()
+app.$mount();
+// #endif
+
+// #ifdef VUE3
+import { createSSRApp } from 'vue'
+
+export function createApp() {
+  const app  = createSSRApp(App)
+  
+  // 引入vuex
+  app.use(store)
+  
+  // 引入 uView UI
+  // app.use(uView)
+  
+  // 引入 vk框架前端
+  app.use(vk);
+  
+  // 初始化 vk框架
+  app.config.globalProperties.vk.init({
+    Vue: app,          // Vue实例
+    config,	           // 配置
+  });
+  
+  return { app }
+}
+// #endif

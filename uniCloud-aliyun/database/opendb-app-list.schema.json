@@ -1,0 +1,81 @@
+{
+	"bsonType": "object",
+	"required": ["appid", "name"],
+	"permission": {
+		"read": false,
+		"create": false,
+		"update": false,
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"appid": {
+			"bsonType": "string",
+			"description": "应用的AppID",
+			"label": "AppID",
+			"componentForEdit": {
+				"name": "uni-easyinput",
+				"props": {
+					"disabled": true
+				}
+			}
+		},
+		"name": {
+			"bsonType": "string",
+			"description": "应用名称",
+			"label": "应用名称",
+			"componentForEdit": {
+				"name": "uni-easyinput",
+				"props": {
+					"disabled": true
+				}
+			}
+		},
+		"description": {
+			"bsonType": "string",
+			"description": "应用描述",
+			"label": "应用描述",
+			"componentForEdit": {
+				"name": "textarea"
+			},
+			"componentForShow": {
+				"name": "textarea",
+				"props": {
+					"disabled": true
+				}
+			}
+		},
+		"creator_uid": {
+			"description": "创建者的user_id，创建者必然是用户，不随应用转让而改变",
+			"bsonType": "string"
+		},
+		"owner_type": {
+			"bsonType": "int",
+			"description": "应用当前归属者类型，1：个人，2：企业"
+		},
+		"owner_id": {
+			"bsonType": "string",
+			"description": "应用当前归属者的id，user_id or enterprise_id"
+		},
+		"managers": {
+			"bsonType": "array",
+			"description": "应用管理员ID列表"
+		},
+		"members": {
+			"bsonType": "array",
+			"description": "团队成员ID列表"
+		},
+		"create_date": {
+			"bsonType": "timestamp",
+			"label": "创建时间",
+			"forceDefaultValue": {
+				"$env": "now"
+			},
+			"componentForEdit": {
+				"name": "uni-dateformat"
+			}
+		}
+	}
+}

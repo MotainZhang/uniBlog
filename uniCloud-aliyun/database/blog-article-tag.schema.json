@@ -1,0 +1,23 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": false,
+		"create": false,
+		"update": false,
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"name": {
+			"description": "分类名称"
+		},
+		"articleId": {
+			"bsonType": "Number",
+			"foreignKey": "blog-article.id",
+			"description": "文章id"
+		}
+	}
+}
