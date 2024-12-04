@@ -92,20 +92,6 @@
 │ └── muban_easy.js────────<span class="hljs-comment"># 云函数模板（简易版）</span>
 └─────────────────────────────────`</pre>
 
-扫描二维码快来体验吧
-
-![体验二维码](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-0971f295-ba06-4d1c-8c5f-e03738f37c87/432b9967-dc74-4f3f-abd6-1a69942de7aa.png)
-![小程序体验二维码](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-0971f295-ba06-4d1c-8c5f-e03738f37c87/a84ca96c-98b6-4d1d-87bc-a88e32a6effc.jpg)
-
-Github开源地址，觉得还可以给个小星星！！！！！后面更新新功能在这里嗷，另外unicloud版admin端正在开发中，期待一下吧。。。。。。
-[uniBlogGitHub](https://github.com/MotainZhang/uniBlog)  
-
-H5体验地址
-[blog](https://static-0971f295-ba06-4d1c-8c5f-e03738f37c87.bspapp.com/zhangjsUni#/)
-
-admin管理体验地址
-[blog-admin](https://static-0971f295-ba06-4d1c-8c5f-e03738f37c87.bspapp.com/zhangjsAdmin/)
-
 感谢Vk-unicloud-router作者
 [Vk-unicloud-router](https://ext.dcloud.net.cn/plugin?id=2204)  
 
